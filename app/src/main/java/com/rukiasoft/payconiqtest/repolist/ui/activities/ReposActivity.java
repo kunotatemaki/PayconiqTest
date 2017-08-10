@@ -1,4 +1,4 @@
-package com.rukiasoft.payconiqtest;
+package com.rukiasoft.payconiqtest.repolist.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -9,7 +9,10 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class ReposActivity extends AppCompatActivity {
+import com.rukiasoft.payconiqtest.R;
+import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposMethods;
+
+public class ReposActivity extends AppCompatActivity implements ReposMethods {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
