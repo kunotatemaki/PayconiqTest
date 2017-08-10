@@ -5,4 +5,8 @@ package com.rukiasoft.payconiqtest.network;
  */
 
 public interface NetworkManager {
+
+    boolean isNetworkAvailable();
+
+
 }

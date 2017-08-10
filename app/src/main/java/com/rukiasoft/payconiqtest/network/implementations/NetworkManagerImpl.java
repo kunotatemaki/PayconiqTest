@@ -1,6 +1,7 @@
 package com.rukiasoft.payconiqtest.network.implementations;
 
 import com.rukiasoft.payconiqtest.network.NetworkManager;
+import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
 import javax.inject.Inject;
 
@@ -11,7 +12,14 @@ import javax.inject.Inject;
 public class NetworkManagerImpl implements NetworkManager {
 
     @Inject
+    LoggerHelper log;
+
+    @Inject
     public NetworkManagerImpl() {
     }
 
+    @Override
+    public boolean isNetworkAvailable() {
+        return false;
+    }
 }

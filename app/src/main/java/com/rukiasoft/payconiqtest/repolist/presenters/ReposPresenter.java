@@ -5,5 +5,9 @@ package com.rukiasoft.payconiqtest.repolist.presenters;
  */
 
 public interface ReposPresenter {
-    void prueba();
+
+    /***
+     * load users from network (if available) or from local database
+     */
+    void loadUsers();
 }

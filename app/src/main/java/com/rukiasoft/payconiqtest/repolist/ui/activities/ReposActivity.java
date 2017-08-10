@@ -74,4 +74,9 @@ public class ReposActivity extends AppCompatActivity implements ReposView {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void setUserInView(User user) {
+        mBinding.setUser(user);
+    }
 }
