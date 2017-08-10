@@ -7,9 +7,14 @@ import android.provider.Settings;
 import android.util.Log;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
+import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -37,12 +42,19 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
     void injectViewInPresenter(){
-        log.d(this, "onstart del observador");
+        log.d(this, "oncreate del observador");
+
+        //force presenter to observe data
+        if(presenter instanceof LivedataObserver) {
+            mView.getLiveRepos().addObserverToLivedata(mView, (LivedataObserver) presenter);
+        }
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     void removeActivityReferenceFromObserver(){
         log.d(this, "ondestroy del observador");
     }
+
+
 
 }

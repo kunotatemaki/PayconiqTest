@@ -1,6 +1,5 @@
 package com.rukiasoft.payconiqtest.dependencyinjection.components;
 
-import com.rukiasoft.payconiqtest.dependencyinjection.modules.LivedataModule;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.NetworkModule;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.PayconiqTestModule;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
@@ -16,7 +15,7 @@ import dagger.Component;
 
 @Singleton
 @Component(
-        modules = {PayconiqTestModule.class, NetworkModule.class, LivedataModule.class}
+        modules = {PayconiqTestModule.class, NetworkModule.class}
 )
 public interface PayconiqTestComponent {
     ReposSubcomponent getReposSubcomponent(ReposModule module);

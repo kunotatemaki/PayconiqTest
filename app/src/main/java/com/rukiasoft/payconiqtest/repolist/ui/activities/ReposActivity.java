@@ -1,15 +1,11 @@
 package com.rukiasoft.payconiqtest.repolist.ui.activities;
 
 import android.arch.lifecycle.LifecycleObserver;
-import android.arch.lifecycle.LifecycleOwner;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.BaseAdapter;
 
 import com.rukiasoft.payconiqtest.PayconiqApplication;
 import com.rukiasoft.payconiqtest.R;
@@ -25,6 +21,8 @@ import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 import com.rukiasoft.payconiqtest.utils.ui.BaseActivity;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 public class ReposActivity extends BaseActivity implements ReposView {
@@ -37,12 +35,6 @@ public class ReposActivity extends BaseActivity implements ReposView {
 
     @Inject
     LoggerHelper log;
-
-    @Inject
-    ReposLivedata<Repo> repos;
-
-
-    ReposViewmodel model;
 
     private ActivityReposBinding mBinding;
 
@@ -58,7 +50,6 @@ public class ReposActivity extends BaseActivity implements ReposView {
         //bind views
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repos);
 
-        model = ViewModelProviders.of(this).get(ReposViewmodel.class);
 
 
         log.d(this, "llamo al presenter desde el view");
@@ -94,9 +85,21 @@ public class ReposActivity extends BaseActivity implements ReposView {
     }
 
     @Override
+    public void setReposInView(List<Repo> repos) {
+        // TODO: 11/8/17 meter los repositorios descargados en la vista
+        log.d(this, "LO CONSEGUIIIIIIIIII!!!!!!");
+    }
+
+    @Override
     public void addLifecycleObserver(ReposLifecycleObserver observer) {
         if(observer instanceof LifecycleObserver) {
             getLifecycle().addObserver((LifecycleObserver) observer);
         }
+    }
+
+    @Override
+    public ReposLivedata<List<Repo>> getLiveRepos() {
+        return ViewModelProviders.of(this).get(ReposViewmodel.class).getRepos();
+
     }
 }
