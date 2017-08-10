@@ -10,9 +10,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rukiasoft.payconiqtest.R;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposMethods;
+import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 
-public class ReposActivity extends AppCompatActivity implements ReposMethods {
+public class ReposActivity extends AppCompatActivity implements ReposView {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
