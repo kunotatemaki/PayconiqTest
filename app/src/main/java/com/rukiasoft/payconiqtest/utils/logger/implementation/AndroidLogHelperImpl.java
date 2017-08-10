@@ -62,7 +62,7 @@ public class AndroidLogHelperImpl implements LoggerHelper {
     }
 
     private static void log(String tag, int level, Throwable t, Object... messages) {
-        if (Log.isLoggable(tag, level)) {
+        //if (Log.isLoggable(tag, level)) {
             String message;
             if (t == null && messages != null && messages.length == 1) {
                 // handle this common case without the extra cost of creating a stringbuffer:
@@ -78,6 +78,6 @@ public class AndroidLogHelperImpl implements LoggerHelper {
                 message = sb.toString();
             }
             Log.println(level, tag, message);
-        }
+        //}
     }
 }
