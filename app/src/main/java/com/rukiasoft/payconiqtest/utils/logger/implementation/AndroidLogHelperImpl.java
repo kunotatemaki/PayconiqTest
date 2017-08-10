@@ -28,6 +28,30 @@ public class AndroidLogHelperImpl implements LoggerHelper {
         log(tag, Log.DEBUG, null, messages);
     }
 
+    @Override
+    public void e(Object theClass, Object... messages) {
+        String tag = makeLogTag(theClass);
+        log(tag, Log.ERROR, null, messages);
+    }
+
+    @Override
+    public void i(Object theClass, Object... messages) {
+        String tag = makeLogTag(theClass);
+        log(tag, Log.INFO, null, messages);
+    }
+
+    @Override
+    public void v(Object theClass, Object... messages) {
+        String tag = makeLogTag(theClass);
+        log(tag, Log.VERBOSE, null, messages);
+    }
+
+    @Override
+    public void w(Object theClass, Object... messages) {
+        String tag = makeLogTag(theClass);
+        log(tag, Log.WARN, null, messages);
+    }
+
     private static String makeLogTag(Object object) {
         String str = object.getClass().getSimpleName();
         if (str.length() > MAX_LOG_TAG_LENGTH - LOG_PREFIX_LENGTH) {
