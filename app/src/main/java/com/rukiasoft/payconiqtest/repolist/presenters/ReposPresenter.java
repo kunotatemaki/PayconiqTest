@@ -7,7 +7,7 @@ package com.rukiasoft.payconiqtest.repolist.presenters;
 public interface ReposPresenter {
 
     /***
-     * load users from network (if available) or from local database
+     * load users from cache, network (if available) or from local database
      */
     void loadUsers();
 }

@@ -1,5 +1,6 @@
 package com.rukiasoft.payconiqtest.repolist.ui.activities;
 
+import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +12,13 @@ import com.rukiasoft.payconiqtest.PayconiqApplication;
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.databinding.ActivityReposBinding;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
+import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
+import com.rukiasoft.payconiqtest.model.livedata.ReposLivedata;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
+import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
 import javax.inject.Inject;
@@ -30,6 +34,12 @@ public class ReposActivity extends AppCompatActivity implements ReposView {
     @Inject
     LoggerHelper log;
 
+    @Inject
+    ReposLivedata<Repo> repos;
+
+
+    ReposViewmodel model;
+
     private ActivityReposBinding mBinding;
 
     @Override
@@ -44,13 +54,12 @@ public class ReposActivity extends AppCompatActivity implements ReposView {
         //bind views
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repos);
 
+        model = ViewModelProviders.of(this).get(ReposViewmodel.class);
 
 
         log.d(this, "llamo al presenter desde el view");
-        presenter.prueba();
-        observer.prueba();
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+
+        setSupportActionBar(mBinding.toolbar);
 
     }
 

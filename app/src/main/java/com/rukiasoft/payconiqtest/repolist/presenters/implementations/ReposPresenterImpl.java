@@ -1,12 +1,11 @@
 package com.rukiasoft.payconiqtest.repolist.presenters.implementations;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
+import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
 import javax.inject.Inject;
-import javax.inject.Singleton;
 
 /**
  * Created by Roll on 10/8/17.
@@ -26,7 +25,7 @@ public class ReposPresenterImpl implements ReposPresenter{
     }
 
     @Override
-    public void prueba() {
-        log.d(this, "estoy en el presenter");
+    public void loadUsers() {
+
     }
 }

@@ -33,6 +33,5 @@ public class ReposLifecycleObserver implements LifecycleObserver {
 
     public void prueba(){
         log.d(this, "llamo al presenter desde prueba");
-        presenter.prueba();
     }
 }

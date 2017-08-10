@@ -34,12 +34,6 @@ public class PayconiqTestModule {
 
     @Provides
     @Singleton
-    NetworkManager providesNetworkManager(NetworkManagerImpl networkManager){
-        return networkManager;
-    }
-
-    @Provides
-    @Singleton
     LoggerHelper providesLogHelper(AndroidLogHelperImpl logger){
         return logger;
     }
