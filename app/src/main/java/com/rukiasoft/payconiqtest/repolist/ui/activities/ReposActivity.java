@@ -1,5 +1,6 @@
 package com.rukiasoft.payconiqtest.repolist.ui.activities;
 
+import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -8,7 +9,9 @@ import android.view.MenuItem;
 
 import com.rukiasoft.payconiqtest.PayconiqApplication;
 import com.rukiasoft.payconiqtest.R;
+import com.rukiasoft.payconiqtest.databinding.ActivityReposBinding;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
+import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
@@ -27,6 +30,8 @@ public class ReposActivity extends AppCompatActivity implements ReposView {
     @Inject
     LoggerHelper log;
 
+    private ActivityReposBinding mBinding;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,14 +41,16 @@ public class ReposActivity extends AppCompatActivity implements ReposView {
                 .getReposSubcomponent(new ReposModule(this))
                 .inject(this);
 
-        setContentView(R.layout.activity_repos);
+        //bind views
+        mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repos);
+
+
 
         log.d(this, "llamo al presenter desde el view");
         presenter.prueba();
         observer.prueba();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
 
     }
 
