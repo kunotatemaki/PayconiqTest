@@ -1,34 +1,50 @@
 package com.rukiasoft.payconiqtest.repolist.ui.activities;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.rukiasoft.payconiqtest.PayconiqApplication;
 import com.rukiasoft.payconiqtest.R;
+import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
+import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
+import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
+
+import javax.inject.Inject;
 
 public class ReposActivity extends AppCompatActivity implements ReposView {
+
+    @Inject
+    ReposPresenter presenter;
+
+    @Inject
+    ReposLifecycleObserver observer;
+
+    @Inject
+    LoggerHelper log;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //inject dependencies
+        ((PayconiqApplication)getApplication())
+                .getmComponent()
+                .getReposSubcomponent(new ReposModule(this))
+                .inject(this);
+
         setContentView(R.layout.activity_repos);
+
+        log.d(this, "llamo al presenter desde el view");
+        presenter.prueba();
+        observer.prueba();
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
+
     }
 
     @Override

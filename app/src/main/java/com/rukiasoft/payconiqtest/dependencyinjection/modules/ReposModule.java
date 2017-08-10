@@ -1,10 +1,10 @@
 package com.rukiasoft.payconiqtest.dependencyinjection.modules;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
+import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
+import com.rukiasoft.payconiqtest.repolist.presenters.implementations.ReposPresenterImpl;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
-import com.rukiasoft.payconiqtest.repolist.ui.presenters.ReposPresenter;
-import com.rukiasoft.payconiqtest.repolist.ui.presenters.implementations.ReposPresenterImpl;
 
 import dagger.Module;
 import dagger.Provides;
@@ -28,11 +28,7 @@ public class ReposModule {
         return presenter;
     }
 
-    @Provides
-    @CustomScopes.ActivityScope
-    ReposLifecycleObserver providesReposLifecycleObserver(){
-        return new ReposLifecycleObserver();
-    }
+
 
     @Provides
     @CustomScopes.ActivityScope

@@ -4,15 +4,18 @@ import com.rukiasoft.payconiqtest.dependencyinjection.modules.PayconiqTestModule
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
 import com.rukiasoft.payconiqtest.dependencyinjection.subcomponents.ReposSubcomponent;
 
+import javax.inject.Singleton;
+
 import dagger.Component;
 
 /**
  * Created by Roll on 10/8/17.
  */
 
+@Singleton
 @Component(
         modules = {PayconiqTestModule.class}
 )
 public interface PayconiqTestComponent {
-    public ReposSubcomponent getReposSubcomponent(ReposModule module);
+    ReposSubcomponent getReposSubcomponent(ReposModule module);
 }
