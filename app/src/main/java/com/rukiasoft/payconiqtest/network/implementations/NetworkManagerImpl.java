@@ -9,6 +9,7 @@ import com.rukiasoft.payconiqtest.network.responsemodel.GithubRepos;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -44,7 +45,11 @@ public class NetworkManagerImpl implements NetworkManager {
     }
 
     @Override
-    public void getDataFromGithub(int page, CustomLivedata<User> user, CustomLivedata<List<Repo>> repos) {
+    public void getDataFromGithub(int page,
+                                  final CustomLivedata<PayconiqConstants.StatusResponse> status,
+                                  final CustomLivedata<User> user,
+                                  final CustomLivedata<List<Repo>> repos
+    ) {
         RetrofitEndpoints endpoints = retrofit.create(RetrofitEndpoints.class);
 
         final Call<List<GithubRepos>> call = endpoints.getRepos(PayconiqConstants.NICKNAME,
@@ -53,11 +58,26 @@ public class NetworkManagerImpl implements NetworkManager {
             @Override
             public void onResponse(Call<List<GithubRepos>> call, Response<List<GithubRepos>> response) {
                 log.d(this, "respuesta ok");
+                if(response.body() != null) {
+                    List<GithubRepos> listResponse = response.body();
+                    if(listResponse == null){
+                        return ;
+                    }
+                    /*List<UserBasic> finalList = new ArrayList<>();
+                    for(UserBasicResponse userResponse : listResponse){
+                        UserBasic user = new UserBasic(userResponse);
+                        finalList.add(user);
+                    }
+                    users.setValue(finalList);*/
+                }
+
             }
 
             @Override
             public void onFailure(Call<List<GithubRepos>> call, Throwable t) {
-
+                log.d(this, "respuesta mal: " + t.getMessage());
+                status.setLivedataValue(PayconiqConstants.StatusResponse.DOWNLOAD_FAILED);
+                // TODO: 11/8/17 hacer algo para que el usuario se entere de que ha ido algo mal
             }
         });
     }

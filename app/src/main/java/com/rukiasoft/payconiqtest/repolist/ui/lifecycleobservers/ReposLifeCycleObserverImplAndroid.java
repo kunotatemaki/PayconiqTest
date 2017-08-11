@@ -43,6 +43,7 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
         if(presenter instanceof LivedataObserver) {
             mView.getLiveRepos().addObserverToLivedata(mView, (LivedataObserver) presenter);
             mView.getLiveUser().addObserverToLivedata(mView, (LivedataObserver) presenter);
+            mView.getLiveStatus().addObserverToLivedata(mView, (LivedataObserver) presenter);
         }
     }
 

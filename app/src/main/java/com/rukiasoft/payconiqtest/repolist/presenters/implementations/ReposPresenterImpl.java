@@ -7,6 +7,7 @@ import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
 import java.util.List;
@@ -53,6 +54,12 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     @Override
     public void handleChangesInObservedUser(User user) {
         mView.setUserInView(user);
+    }
+
+    @Override
+    public void handleChangesInObservedStatus(PayconiqConstants.StatusResponse status) {
+        // TODO: 11/8/17 manejar la respuesta del retrofit (subir el número de páginas, mostrar mensaje de error...)
+        log.d(this, "he cambiado el status a " + status);
     }
 
     //endregion

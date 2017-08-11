@@ -4,6 +4,7 @@ import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import java.util.List;
 
@@ -26,6 +27,8 @@ public interface ReposView {
     CustomLivedata<List<Repo>> getLiveRepos();
 
     CustomLivedata<User> getLiveUser();
+
+    CustomLivedata<PayconiqConstants.StatusResponse> getLiveStatus();
 
 
 }

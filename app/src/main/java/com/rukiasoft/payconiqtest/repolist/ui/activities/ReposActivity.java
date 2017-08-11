@@ -18,6 +18,7 @@ import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
 import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 import com.rukiasoft.payconiqtest.utils.ui.BaseActivity;
 
@@ -105,5 +106,10 @@ public class ReposActivity extends BaseActivity implements ReposView {
     @Override
     public CustomLivedata<User> getLiveUser() {
         return ViewModelProviders.of(this).get(ReposViewmodel.class).getUser();
+    }
+
+    @Override
+    public CustomLivedata<PayconiqConstants.StatusResponse> getLiveStatus() {
+        return ViewModelProviders.of(this).get(ReposViewmodel.class).getStatus();
     }
 }

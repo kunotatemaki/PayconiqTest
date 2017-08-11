@@ -6,7 +6,9 @@ import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.model.livedata.ReposLiveDataImplAndroid;
 import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
+import com.rukiasoft.payconiqtest.model.livedata.StatusLiveDataImplAndroid;
 import com.rukiasoft.payconiqtest.model.livedata.UserLiveDataImplAndroid;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import java.util.List;
 
@@ -16,7 +18,10 @@ import java.util.List;
 
 public class ReposViewmodel extends ViewModel {
 
+
     public int lastPageRequested = 0;
+
+    private CustomLivedata<PayconiqConstants.StatusResponse> status;
 
     private CustomLivedata<List<Repo>> repos;
 
@@ -34,5 +39,13 @@ public class ReposViewmodel extends ViewModel {
             user = new UserLiveDataImplAndroid();
         }
         return user;
+    }
+
+    public CustomLivedata<PayconiqConstants.StatusResponse> getStatus() {
+        if(status == null){
+            status = new StatusLiveDataImplAndroid();
+            status.setLivedataValue(PayconiqConstants.StatusResponse.ORIGINAL_STATE);
+        }
+        return status;
     }
 }

@@ -2,6 +2,7 @@ package com.rukiasoft.payconiqtest.repolist.ui.livedataobservers;
 
 import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import java.util.List;
 
@@ -19,6 +20,8 @@ public interface LivedataObserver {
     void handleChangesInObservedRepos(List<Repo> repos);
 
     void handleChangesInObservedUser(User user);
+
+    void handleChangesInObservedStatus(PayconiqConstants.StatusResponse status);
 
 }
 
