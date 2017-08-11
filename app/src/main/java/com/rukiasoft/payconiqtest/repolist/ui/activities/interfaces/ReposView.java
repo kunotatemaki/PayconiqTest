@@ -30,5 +30,7 @@ public interface ReposView {
 
     CustomLivedata<PayconiqConstants.StatusResponse> getLiveStatus();
 
+    int getLastPageRequested();
+
 
 }

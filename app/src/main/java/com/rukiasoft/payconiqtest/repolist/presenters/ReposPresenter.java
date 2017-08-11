@@ -12,9 +12,9 @@ public interface ReposPresenter {
     /***
      * load users from cache, network (if available) or from local database
      */
-    void loadUsers();
+    void loadRepos();
 
-    void observeLiveData(CustomLivedata<Repo> repos);
+
 
 
 }

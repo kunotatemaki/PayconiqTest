@@ -60,15 +60,25 @@ public class NetworkManagerImpl implements NetworkManager {
                 log.d(this, "respuesta ok");
                 if(response.body() != null) {
                     List<GithubRepos> listResponse = response.body();
-                    if(listResponse == null){
+                    if(listResponse == null && listResponse.isEmpty()){
+                        status.setLivedataValue(PayconiqConstants.StatusResponse.NO_MORE_REPOS);
                         return ;
                     }
-                    /*List<UserBasic> finalList = new ArrayList<>();
-                    for(UserBasicResponse userResponse : listResponse){
-                        UserBasic user = new UserBasic(userResponse);
-                        finalList.add(user);
+                    User lUser = null;
+                    List<Repo> repoList = new ArrayList<>();
+                    for(GithubRepos githubResponse : listResponse){
+                        if(lUser == null){
+                            lUser = new User(githubResponse.getUser().getLogin(),
+                                    githubResponse.getUser().getAvatarUrl());
+                        }
+                        Repo repo = new Repo(githubResponse.getName(),
+                                githubResponse.getDescription());
+                        repoList.add(repo);
                     }
-                    users.setValue(finalList);*/
+                    //update livedata values
+                    user.setLivedataValue(lUser);
+                    repos.setLivedataValue(repoList);
+                    status.setLivedataValue(PayconiqConstants.StatusResponse.DOWNLOAD_OK);
                 }
 
             }

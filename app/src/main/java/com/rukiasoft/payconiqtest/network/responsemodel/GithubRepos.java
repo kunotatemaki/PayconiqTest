@@ -13,10 +13,6 @@ public class GithubRepos {
     @Expose
     private String name;
 
-    @SerializedName("full_name")
-    @Expose
-    private String fullName;
-
     @SerializedName("owner")
     @Expose
     private GithubUser user;
@@ -31,14 +27,6 @@ public class GithubRepos {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public String getFullName() {
-        return fullName;
-    }
-
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
     }
 
     public GithubUser getUser() {

@@ -112,4 +112,9 @@ public class ReposActivity extends BaseActivity implements ReposView {
     public CustomLivedata<PayconiqConstants.StatusResponse> getLiveStatus() {
         return ViewModelProviders.of(this).get(ReposViewmodel.class).getStatus();
     }
+
+    @Override
+    public int getLastPageRequested() {
+        return ViewModelProviders.of(this).get(ReposViewmodel.class).lastPageRequested;
+    }
 }

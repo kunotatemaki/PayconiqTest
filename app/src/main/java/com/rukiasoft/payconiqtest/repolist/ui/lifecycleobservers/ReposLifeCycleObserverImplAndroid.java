@@ -45,6 +45,7 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
             mView.getLiveUser().addObserverToLivedata(mView, (LivedataObserver) presenter);
             mView.getLiveStatus().addObserverToLivedata(mView, (LivedataObserver) presenter);
         }
+        presenter.loadRepos();
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
@@ -52,10 +53,6 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
         log.d(this, "ondestroy del observador");
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
-    void prueba(){
-        User user = new User("Raul", "foto_to_guapa");
-        mView.getLiveUser().setLivedataValue(user);
-    }
+
 
 }

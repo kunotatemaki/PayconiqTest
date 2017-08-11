@@ -4,6 +4,7 @@ import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
 import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
+import com.rukiasoft.payconiqtest.network.NetworkManager;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
@@ -27,6 +28,9 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     LoggerHelper log;
 
     @Inject
+    NetworkManager network;
+
+    @Inject
     public ReposPresenterImpl(ReposView view) {
         mView = view;
     }
@@ -34,14 +38,29 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
 
     // region REPOS PRESENTER INTERFACE
     @Override
-    public void loadUsers() {
+    public void loadRepos() {
+        //check if there is data in cache
+        List<Repo> repos = mView.getLiveRepos().getLivedataValue();
+        User user = mView.getLiveUser().getLivedataValue();
+        if(user != null && repos != null && !repos.isEmpty()){
+            //cached data
+            mView.setUserInView(user);
+            mView.setReposInView(repos);
+        }else if(network.isNetworkAvailable()){
+            //internet connection, download!!
+            network.getDataFromGithub(
+                    mView.getLastPageRequested(),
+                    mView.getLiveStatus(),
+                    mView.getLiveUser(),
+                    mView.getLiveRepos()
+            );
+        }else{
+            //load data from local database
+            // TODO: 11/8/17 load data from db
 
+        }
     }
 
-    @Override
-    public void observeLiveData(CustomLivedata<Repo> repos) {
-
-    }
 
     //endregion
 
