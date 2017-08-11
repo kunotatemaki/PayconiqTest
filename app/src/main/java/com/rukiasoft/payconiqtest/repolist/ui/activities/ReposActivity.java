@@ -55,8 +55,6 @@ public class ReposActivity extends BaseActivity implements ReposView {
         //bind views
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repos);
 
-        adapter.prueba();
-
         log.d(this, "llamo al presenter desde el view");
 
         setToolbar(mBinding.toolbar, false);

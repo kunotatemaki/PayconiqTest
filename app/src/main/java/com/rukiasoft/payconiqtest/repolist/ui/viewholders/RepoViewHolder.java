@@ -9,11 +9,11 @@ import com.rukiasoft.payconiqtest.model.Repo;
  * Created by Roll on 10/8/17.
  */
 
-public class UserViewHolder extends RecyclerView.ViewHolder {
+public class RepoViewHolder extends RecyclerView.ViewHolder {
 
     private RepoItemBinding mBinding;
 
-    public UserViewHolder(RepoItemBinding binding) {
+    public RepoViewHolder(RepoItemBinding binding) {
 
         super(binding.getRoot());
         mBinding = binding;
