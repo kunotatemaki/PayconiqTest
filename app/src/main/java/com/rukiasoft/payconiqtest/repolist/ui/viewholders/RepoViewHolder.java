@@ -20,8 +20,7 @@ public class RepoViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void bind(Repo repo){
-        mBinding.repoName.setText(repo.getName());
-        mBinding.repoDescription.setText(repo.getDescription());
+        mBinding.setRepo(repo);
     }
 
 }
