@@ -2,7 +2,8 @@ package com.rukiasoft.payconiqtest.repolist.presenters.implementations;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
 import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.livedata.ReposLivedata;
+import com.rukiasoft.payconiqtest.model.User;
+import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
@@ -37,7 +38,7 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     }
 
     @Override
-    public void observeLiveData(ReposLivedata<Repo> repos) {
+    public void observeLiveData(CustomLivedata<Repo> repos) {
 
     }
 
@@ -47,6 +48,11 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     @Override
     public void handleChangesInObservedRepos(List<Repo> repos) {
         mView.setReposInView(repos);
+    }
+
+    @Override
+    public void handleChangesInObservedUser(User user) {
+        mView.setUserInView(user);
     }
 
     //endregion

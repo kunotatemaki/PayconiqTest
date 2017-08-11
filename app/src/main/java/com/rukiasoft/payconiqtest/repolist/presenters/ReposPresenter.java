@@ -1,9 +1,7 @@
 package com.rukiasoft.payconiqtest.repolist.presenters;
 
 import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.livedata.ReposLivedata;
-
-import java.util.List;
+import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 
 /**
  * Created by Roll on 10/8/17.
@@ -16,7 +14,7 @@ public interface ReposPresenter {
      */
     void loadUsers();
 
-    void observeLiveData(ReposLivedata<Repo> repos);
+    void observeLiveData(CustomLivedata<Repo> repos);
 
 
 }

@@ -3,8 +3,10 @@ package com.rukiasoft.payconiqtest.repolist.ui.viewmodels;
 import android.arch.lifecycle.ViewModel;
 
 import com.rukiasoft.payconiqtest.model.Repo;
+import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.model.livedata.ReposLiveDataImplAndroid;
-import com.rukiasoft.payconiqtest.model.livedata.ReposLivedata;
+import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
+import com.rukiasoft.payconiqtest.model.livedata.UserLiveDataImplAndroid;
 
 import java.util.List;
 
@@ -16,13 +18,21 @@ public class ReposViewmodel extends ViewModel {
 
     public int lastPageRequested = 0;
 
-    ReposLivedata<List<Repo>> repos;
+    private CustomLivedata<List<Repo>> repos;
 
-    public ReposLivedata<List<Repo>> getRepos() {
+    private CustomLivedata<User> user;
+
+    public CustomLivedata<List<Repo>> getRepos() {
         if(repos == null){
             repos = new ReposLiveDataImplAndroid();
         }
         return repos;
     }
 
+    public CustomLivedata<User> getUser() {
+        if(user == null){
+            user = new UserLiveDataImplAndroid();
+        }
+        return user;
+    }
 }

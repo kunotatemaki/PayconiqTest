@@ -2,7 +2,7 @@ package com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces;
 
 import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.ReposLivedata;
+import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
 
 import java.util.List;
@@ -23,7 +23,9 @@ public interface ReposView {
 
     void addLifecycleObserver(ReposLifecycleObserver observer);
 
-    ReposLivedata<List<Repo>> getLiveRepos();
+    CustomLivedata<List<Repo>> getLiveRepos();
+
+    CustomLivedata<User> getLiveUser();
 
 
 }

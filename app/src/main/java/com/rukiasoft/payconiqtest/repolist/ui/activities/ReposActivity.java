@@ -13,7 +13,7 @@ import com.rukiasoft.payconiqtest.databinding.ActivityReposBinding;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
 import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.ReposLivedata;
+import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
@@ -98,8 +98,12 @@ public class ReposActivity extends BaseActivity implements ReposView {
     }
 
     @Override
-    public ReposLivedata<List<Repo>> getLiveRepos() {
+    public CustomLivedata<List<Repo>> getLiveRepos() {
         return ViewModelProviders.of(this).get(ReposViewmodel.class).getRepos();
+    }
 
+    @Override
+    public CustomLivedata<User> getLiveUser() {
+        return ViewModelProviders.of(this).get(ReposViewmodel.class).getUser();
     }
 }

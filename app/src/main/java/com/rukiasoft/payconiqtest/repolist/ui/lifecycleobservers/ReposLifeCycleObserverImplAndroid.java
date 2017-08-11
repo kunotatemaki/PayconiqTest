@@ -3,18 +3,13 @@ package com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
-import android.provider.Settings;
-import android.util.Log;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
-import com.rukiasoft.payconiqtest.model.Repo;
+import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -44,9 +39,10 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
     void injectViewInPresenter(){
         log.d(this, "oncreate del observador");
 
-        //force presenter to observe data
+        //force presenter to observe data (repos and user)
         if(presenter instanceof LivedataObserver) {
             mView.getLiveRepos().addObserverToLivedata(mView, (LivedataObserver) presenter);
+            mView.getLiveUser().addObserverToLivedata(mView, (LivedataObserver) presenter);
         }
     }
 
@@ -55,6 +51,10 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
         log.d(this, "ondestroy del observador");
     }
 
-
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void prueba(){
+        User user = new User("Raul", "foto_to_guapa");
+        mView.getLiveUser().setLivedataValue(user);
+    }
 
 }
