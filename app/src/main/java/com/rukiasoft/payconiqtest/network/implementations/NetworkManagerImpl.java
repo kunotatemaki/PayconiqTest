@@ -83,6 +83,9 @@ public class NetworkManagerImpl implements NetworkManager {
                     }else {
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);
                     }
+                }else{
+                    log.d(this, "respuesta vacía");
+                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
                 }
 
             }

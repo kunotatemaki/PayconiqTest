@@ -96,6 +96,7 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
             case ORIGINAL_STATE:
                 break;
             case DOWNLOAD_FAILED:
+                mView.hideProgressBar();
                 break;
             case DOWNLOAD_OK:
                 mView.setLastPageRequested(mView.getLastPageRequested() + 1);

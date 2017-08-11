@@ -104,6 +104,7 @@ public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     public void hideProgressBar(){
         progressBarVisible = false;
+        notifyItemRemoved(mItems.size());
     }
 
 }

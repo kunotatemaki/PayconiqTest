@@ -134,7 +134,7 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
 
     @Override
     public void showProgressBar() {
-        //adapter.showProgressBar();
+        adapter.showProgressBar();
     }
 
     @Override
