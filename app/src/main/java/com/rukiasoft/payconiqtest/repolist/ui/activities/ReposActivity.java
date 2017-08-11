@@ -4,6 +4,7 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -21,6 +22,7 @@ import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.adapters.ReposAdapter;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
+import com.rukiasoft.payconiqtest.repolist.ui.listeners.EndlessRecyclerViewScrollListener;
 import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
@@ -30,7 +32,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class ReposActivity extends BaseActivity implements ReposView {
+public class ReposActivity extends BaseActivity implements ReposView, AppBarLayout.OnOffsetChangedListener{
 
     @Inject
     ReposPresenter presenter;
@@ -46,6 +48,7 @@ public class ReposActivity extends BaseActivity implements ReposView {
 
     private ActivityReposBinding mBinding;
     private RecyclerView mRecyclerView;
+    private EndlessRecyclerViewScrollListener mScrollListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +66,9 @@ public class ReposActivity extends BaseActivity implements ReposView {
 
         setToolbar(mBinding.toolbar, false);
 
+        //listener for the appbar
+        mBinding.appBar.addOnOffsetChangedListener(this);
+
         //set the adapter for the recycler view
         mRecyclerView = mBinding.contentList.repoList;
 
@@ -70,31 +76,21 @@ public class ReposActivity extends BaseActivity implements ReposView {
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
         mRecyclerView.setAdapter(adapter);
+        //add a divider decorator
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-    }
+        mScrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) mRecyclerView.getLayoutManager()) {
+            @Override
+            public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
+                log.d(this, "load more data");
+                presenter.getNextBatchFromNetwork();
+            }
+        };
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_repos, menu);
-        return true;
-    }
 
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
 
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
-        }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -104,9 +100,9 @@ public class ReposActivity extends BaseActivity implements ReposView {
 
     @Override
     public void setReposInView(List<Repo> repos) {
-        // TODO: 11/8/17 meter los repositorios descargados en la vista
-        log.d(this, "LO CONSEGUIIIIIIIIII!!!!!!");
+        log.d(this, "setting repos in view");
         adapter.addItems(repos);
+
     }
 
     @Override
@@ -138,7 +134,7 @@ public class ReposActivity extends BaseActivity implements ReposView {
 
     @Override
     public void showProgressBar() {
-        adapter.showProgressBar();
+        //adapter.showProgressBar();
     }
 
     @Override
@@ -150,4 +146,27 @@ public class ReposActivity extends BaseActivity implements ReposView {
     public void setLastPageRequested(int page) {
         ViewModelProviders.of(this).get(ReposViewmodel.class).lastPageRequested = page;
     }
+
+
+    //region SCROLL METHODS
+    private void setScrollListener(){
+        mRecyclerView.addOnScrollListener(mScrollListener);
+    }
+
+    private void removeScrollListener(){
+        mRecyclerView.clearOnScrollListeners();
+    }
+    //enregion
+
+    //region interfaza appbarlayout
+    @Override
+    public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
+        if(Math.abs(verticalOffset) > appBarLayout.getTotalScrollRange() - 5){  //5 is a small threshold
+            setScrollListener();
+        }else {
+            removeScrollListener();
+        }
+    }
+
+    //endregion
 }

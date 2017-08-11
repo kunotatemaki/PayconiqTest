@@ -78,7 +78,11 @@ public class NetworkManagerImpl implements NetworkManager {
                     //update livedata values
                     user.setLivedataValue(lUser);
                     repos.setLivedataValue(repoList);
-                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);
+                    if(repoList.size() < PayconiqConstants.PER_PAGE_VALUE){
+                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
+                    }else {
+                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);
+                    }
                 }
 
             }

@@ -1,6 +1,7 @@
 package com.rukiasoft.payconiqtest.repolist.ui.viewholders;
 
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 
 import com.rukiasoft.payconiqtest.databinding.RepoItemBinding;
 import com.rukiasoft.payconiqtest.model.Repo;
@@ -21,6 +22,7 @@ public class RepoViewHolder extends RecyclerView.ViewHolder {
 
     public void bind(Repo repo){
         mBinding.setRepo(repo);
+
     }
 
 }

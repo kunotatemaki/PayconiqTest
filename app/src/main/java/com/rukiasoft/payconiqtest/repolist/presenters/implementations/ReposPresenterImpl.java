@@ -11,7 +11,6 @@ import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
 import java.util.List;
-import java.util.logging.MemoryHandler;
 
 import javax.inject.Inject;
 
