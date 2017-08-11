@@ -1,8 +1,8 @@
 package com.rukiasoft.payconiqtest.network;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
+import com.rukiasoft.payconiqtest.model.CustomLivedata;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import java.util.List;

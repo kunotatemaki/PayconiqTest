@@ -9,6 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class GithubRepos {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
+
     @SerializedName("name")
     @Expose
     private String name;
@@ -43,5 +47,13 @@ public class GithubRepos {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

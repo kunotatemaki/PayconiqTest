@@ -6,7 +6,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:context="com.rukiasoft.payconiqtest.repolist.ui.activities.ReposActivity"
+        tools:context="com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposActivity"
         tools:showIn="@layout/activity_repos"
         tools:layout_editor_absoluteY="275dp"
         tools:layout_editor_absoluteX="0dp">

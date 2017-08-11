@@ -25,4 +25,6 @@ public class PayconiqConstants {
     public static final String BASE_URL = "https://api.github.com/";
     public static final String NICKNAME = "JakeWharton";
     public static final int PER_PAGE_VALUE = 15;
+
+    public static final String DATABASE_NAME = "payconiq-db";
 }

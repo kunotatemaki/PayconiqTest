@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.databinding.RepoItemBinding;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
-import com.rukiasoft.payconiqtest.model.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.viewholders.ProgressViewHolder;
 import com.rukiasoft.payconiqtest.repolist.ui.viewholders.RepoViewHolder;

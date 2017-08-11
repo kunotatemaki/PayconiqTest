@@ -1,17 +1,13 @@
-package com.rukiasoft.payconiqtest.model.livedata;
+package com.rukiasoft.payconiqtest.model;
 
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
-import android.hardware.usb.UsbRequest;
 import android.support.annotation.Nullable;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

@@ -1,25 +1,23 @@
-package com.rukiasoft.payconiqtest.repolist.ui.activities;
+package com.rukiasoft.payconiqtest.repolist.ui.mainviews;
 
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.view.Menu;
-import android.view.MenuItem;
 
 import com.rukiasoft.payconiqtest.PayconiqApplication;
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.databinding.ActivityReposBinding;
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
+import com.rukiasoft.payconiqtest.model.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.adapters.ReposAdapter;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
 import com.rukiasoft.payconiqtest.repolist.ui.listeners.EndlessRecyclerViewScrollListener;
@@ -145,6 +143,11 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
     @Override
     public void setLastPageRequested(int page) {
         ViewModelProviders.of(this).get(ReposViewmodel.class).lastPageRequested = page;
+    }
+
+    @Override
+    public void showMessage(String msg) {
+        Snackbar.make(mBinding.getRoot(), msg, Snackbar.LENGTH_LONG).show();
     }
 
 

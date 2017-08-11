@@ -2,12 +2,12 @@ package com.rukiasoft.payconiqtest.repolist.ui.viewmodels;
 
 import android.arch.lifecycle.ViewModel;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.ReposLiveDataImplAndroid;
-import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
-import com.rukiasoft.payconiqtest.model.livedata.StatusLiveDataImplAndroid;
-import com.rukiasoft.payconiqtest.model.livedata.UserLiveDataImplAndroid;
+import com.rukiasoft.payconiqtest.model.CustomLivedata;
+import com.rukiasoft.payconiqtest.model.ReposLiveDataImplAndroid;
+import com.rukiasoft.payconiqtest.model.StatusLiveDataImplAndroid;
+import com.rukiasoft.payconiqtest.model.UserLiveDataImplAndroid;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import java.util.List;

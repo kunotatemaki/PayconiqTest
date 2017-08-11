@@ -1,10 +1,9 @@
 package com.rukiasoft.payconiqtest.repolist.ui.viewholders;
 
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.rukiasoft.payconiqtest.databinding.RepoItemBinding;
-import com.rukiasoft.payconiqtest.model.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 
 /**
  * Created by Roll on 10/8/17.

@@ -2,8 +2,8 @@ package com.rukiasoft.payconiqtest.dependencyinjection.modules;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
-import com.rukiasoft.payconiqtest.repolist.presenters.implementations.ReposPresenterImpl;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenterImpl;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifeCycleObserverImplAndroid;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
 

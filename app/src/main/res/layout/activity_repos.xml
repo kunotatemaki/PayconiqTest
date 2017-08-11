@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.rukiasoft.payconiqtest.model.User"/>
+        <import type="com.rukiasoft.payconiqtest.persistence.entities.User"/>
         <variable
             name="user"
             type="User"/>
@@ -12,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fitsSystemWindows="true"
-        tools:context="com.rukiasoft.payconiqtest.repolist.ui.activities.ReposActivity">
+        tools:context="com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposActivity">
 
         <android.support.design.widget.AppBarLayout
             android:id="@+id/app_bar"

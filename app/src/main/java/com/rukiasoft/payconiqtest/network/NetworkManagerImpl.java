@@ -1,11 +1,10 @@
-package com.rukiasoft.payconiqtest.network.implementations;
+package com.rukiasoft.payconiqtest.network;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
-import com.rukiasoft.payconiqtest.network.NetworkManager;
+import com.rukiasoft.payconiqtest.model.CustomLivedata;
 import com.rukiasoft.payconiqtest.network.endpoints.RetrofitEndpoints;
 import com.rukiasoft.payconiqtest.network.responsemodel.GithubRepos;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
@@ -68,10 +67,13 @@ public class NetworkManagerImpl implements NetworkManager {
                     List<Repo> repoList = new ArrayList<>();
                     for(GithubRepos githubResponse : listResponse){
                         if(lUser == null){
-                            lUser = new User(githubResponse.getUser().getLogin(),
+                            lUser = new User(githubResponse.getUser().getId(),
+                                    githubResponse.getUser().getLogin(),
                                     githubResponse.getUser().getAvatarUrl());
                         }
-                        Repo repo = new Repo(githubResponse.getName(),
+                        Repo repo = new Repo(githubResponse.getId(),
+                                githubResponse.getUser().getId(),
+                                githubResponse.getName(),
                                 githubResponse.getDescription());
                         repoList.add(repo);
                     }

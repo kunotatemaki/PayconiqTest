@@ -1,13 +1,13 @@
-package com.rukiasoft.payconiqtest.model.livedata;
+package com.rukiasoft.payconiqtest.model;
 
 import android.arch.lifecycle.LifecycleRegistryOwner;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.Observer;
 import android.support.annotation.Nullable;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
 
 import java.util.List;
 

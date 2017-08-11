@@ -5,9 +5,8 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
-import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 

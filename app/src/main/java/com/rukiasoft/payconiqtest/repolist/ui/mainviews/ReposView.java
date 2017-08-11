@@ -1,8 +1,8 @@
-package com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces;
+package com.rukiasoft.payconiqtest.repolist.ui.mainviews;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
+import com.rukiasoft.payconiqtest.model.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
@@ -38,5 +38,6 @@ public interface ReposView {
 
     void setLastPageRequested(int page);
 
+    void showMessage(String msg);
 
 }

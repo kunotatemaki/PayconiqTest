@@ -9,6 +9,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class GithubUser {
 
+    @SerializedName("id")
+    @Expose
+    private int id;
+
     @SerializedName("login")
     @Expose
     private String login;
@@ -31,5 +35,13 @@ public class GithubUser {
 
     public void setAvatarUrl(String avatarUrl) {
         this.avatarUrl = avatarUrl;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

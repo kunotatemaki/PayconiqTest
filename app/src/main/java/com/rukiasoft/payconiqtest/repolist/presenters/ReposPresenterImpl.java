@@ -1,12 +1,13 @@
-package com.rukiasoft.payconiqtest.repolist.presenters.implementations;
+package com.rukiasoft.payconiqtest.repolist.presenters;
 
+import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.network.NetworkManager;
-import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
+import com.rukiasoft.payconiqtest.resources.ResourcesManager;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
@@ -28,6 +29,9 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
 
     @Inject
     NetworkManager network;
+
+    @Inject
+    ResourcesManager resourcesManager;
 
     @Inject
     public ReposPresenterImpl(ReposView view) {
@@ -103,6 +107,7 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
                 break;
             case NO_MORE_REPOS:
                 mView.setLastPageRequested(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS.getNumVal());
+                mView.showMessage(resourcesManager.getString(R.string.no_more_repos));
                 break;
         }
     }

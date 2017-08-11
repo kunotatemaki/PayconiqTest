@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     <data>
-        <import type="com.rukiasoft.payconiqtest.model.Repo"/>
+        <import type="com.rukiasoft.payconiqtest.persistence.entities.Repo"/>
         <variable
             name="repo"
             type="Repo"/>

@@ -2,7 +2,7 @@ package com.rukiasoft.payconiqtest.dependencyinjection.subcomponents;
 
 import com.rukiasoft.payconiqtest.dependencyinjection.modules.ReposModule;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
-import com.rukiasoft.payconiqtest.repolist.ui.activities.ReposActivity;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposActivity;
 
 import dagger.Subcomponent;
 

@@ -1,7 +1,7 @@
 package com.rukiasoft.payconiqtest.repolist.ui.livedataobservers;
 
-import com.rukiasoft.payconiqtest.model.Repo;
-import com.rukiasoft.payconiqtest.model.User;
+import com.rukiasoft.payconiqtest.persistence.entities.Repo;
+import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.rukiasoft.payconiqtest.model.livedata;
+package com.rukiasoft.payconiqtest.model;
 
-import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
 
 /**
