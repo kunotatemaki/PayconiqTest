@@ -5,10 +5,9 @@ package com.rukiasoft.payconiqtest.utils;
  */
 
 public class PayconiqConstants {
-    public enum ObservableType{
-        USER,
-        REPOSITORIES
-    }
 
+    public static final String BASE_URL = "https://api.github.com/";
+    public static final String NICKNAME = "JakeWharton";
+    public static final int PER_PAGE_VALUE = 15;
 
 }
