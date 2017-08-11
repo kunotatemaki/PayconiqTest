@@ -3,7 +3,6 @@ package com.rukiasoft.payconiqtest.repolist.presenters.implementations;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
 import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.model.User;
-import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.network.NetworkManager;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
@@ -12,6 +11,7 @@ import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
 
 import java.util.List;
+import java.util.logging.MemoryHandler;
 
 import javax.inject.Inject;
 
@@ -48,15 +48,7 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
             mView.setReposInView(repos);
         }else if(network.isNetworkAvailable()){
             //internet connection, download!!
-            //show progress bar
-            mView.showProgressBar();
-            //call network endpoint
-            network.getDataFromGithub(
-                    mView.getLastPageRequested(),
-                    mView.getLiveStatus(),
-                    mView.getLiveUser(),
-                    mView.getLiveRepos()
-            );
+            getNextBatchFromNetwork();
         }else{
             //load data from local database
             // TODO: 11/8/17 load data from db
@@ -64,6 +56,22 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
         }
     }
 
+    @Override
+    public void getNextBatchFromNetwork() {
+        if(mView.getLastPageRequested() < 0){
+            // no more pages to download
+            return;
+        }
+        //show progress bar
+        mView.showProgressBar();
+        //call network endpoint
+        network.getDataFromGithub(
+                mView.getLastPageRequested() + 1,
+                mView.getLiveStatus(),
+                mView.getLiveUser(),
+                mView.getLiveRepos()
+        );
+    }
 
     //endregion
 
@@ -82,9 +90,21 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     }
 
     @Override
-    public void handleChangesInObservedStatus(PayconiqConstants.StatusResponse status) {
+    public void handleChangesInObservedStatus(PayconiqConstants.STATUS_RESPONSE status) {
         // TODO: 11/8/17 manejar la respuesta del retrofit (subir el número de páginas, mostrar mensaje de error...)
         log.d(this, "he cambiado el status a " + status);
+        switch (status){
+            case ORIGINAL_STATE:
+                break;
+            case DOWNLOAD_FAILED:
+                break;
+            case DOWNLOAD_OK:
+                mView.setLastPageRequested(mView.getLastPageRequested() + 1);
+                break;
+            case NO_MORE_REPOS:
+                mView.setLastPageRequested(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS.getNumVal());
+                break;
+        }
     }
 
     //endregion

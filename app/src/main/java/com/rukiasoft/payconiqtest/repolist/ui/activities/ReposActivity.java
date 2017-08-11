@@ -127,7 +127,7 @@ public class ReposActivity extends BaseActivity implements ReposView {
     }
 
     @Override
-    public CustomLivedata<PayconiqConstants.StatusResponse> getLiveStatus() {
+    public CustomLivedata<PayconiqConstants.STATUS_RESPONSE> getLiveStatus() {
         return ViewModelProviders.of(this).get(ReposViewmodel.class).getStatus();
     }
 
@@ -144,5 +144,10 @@ public class ReposActivity extends BaseActivity implements ReposView {
     @Override
     public void hideProgressBar() {
         adapter.hideProgressBar();
+    }
+
+    @Override
+    public void setLastPageRequested(int page) {
+        ViewModelProviders.of(this).get(ReposViewmodel.class).lastPageRequested = page;
     }
 }

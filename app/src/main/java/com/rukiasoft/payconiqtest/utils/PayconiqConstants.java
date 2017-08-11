@@ -5,11 +5,21 @@ package com.rukiasoft.payconiqtest.utils;
  */
 
 public class PayconiqConstants {
-    public enum StatusResponse{
-        ORIGINAL_STATE,
-        DOWNLOAD_OK,
-        NO_MORE_REPOS,
-        DOWNLOAD_FAILED
+    public enum STATUS_RESPONSE {
+        ORIGINAL_STATE(0),
+        DOWNLOAD_OK(1),
+        NO_MORE_REPOS(-1),
+        DOWNLOAD_FAILED(-2);
+
+        private int numVal;
+
+        STATUS_RESPONSE(int val){
+            this.numVal = val;
+        }
+
+        public int getNumVal(){
+            return numVal;
+        }
     }
 
     public static final String BASE_URL = "https://api.github.com/";

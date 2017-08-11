@@ -46,7 +46,7 @@ public class NetworkManagerImpl implements NetworkManager {
 
     @Override
     public void getDataFromGithub(int page,
-                                  final CustomLivedata<PayconiqConstants.StatusResponse> status,
+                                  final CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status,
                                   final CustomLivedata<User> user,
                                   final CustomLivedata<List<Repo>> repos
     ) {
@@ -61,7 +61,7 @@ public class NetworkManagerImpl implements NetworkManager {
                 if(response.body() != null) {
                     List<GithubRepos> listResponse = response.body();
                     if(listResponse == null && listResponse.isEmpty()){
-                        status.setLivedataValue(PayconiqConstants.StatusResponse.NO_MORE_REPOS);
+                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
                         return ;
                     }
                     User lUser = null;
@@ -78,7 +78,7 @@ public class NetworkManagerImpl implements NetworkManager {
                     //update livedata values
                     user.setLivedataValue(lUser);
                     repos.setLivedataValue(repoList);
-                    status.setLivedataValue(PayconiqConstants.StatusResponse.DOWNLOAD_OK);
+                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);
                 }
 
             }
@@ -86,7 +86,7 @@ public class NetworkManagerImpl implements NetworkManager {
             @Override
             public void onFailure(Call<List<GithubRepos>> call, Throwable t) {
                 log.d(this, "respuesta mal: " + t.getMessage());
-                status.setLivedataValue(PayconiqConstants.StatusResponse.DOWNLOAD_FAILED);
+                status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
                 // TODO: 11/8/17 hacer algo para que el usuario se entere de que ha ido algo mal
             }
         });

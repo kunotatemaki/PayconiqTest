@@ -21,7 +21,7 @@ public class ReposViewmodel extends ViewModel {
 
     public int lastPageRequested = 0;
 
-    private CustomLivedata<PayconiqConstants.StatusResponse> status;
+    private CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status;
 
     private CustomLivedata<List<Repo>> repos;
 
@@ -41,10 +41,10 @@ public class ReposViewmodel extends ViewModel {
         return user;
     }
 
-    public CustomLivedata<PayconiqConstants.StatusResponse> getStatus() {
+    public CustomLivedata<PayconiqConstants.STATUS_RESPONSE> getStatus() {
         if(status == null){
             status = new StatusLiveDataImplAndroid();
-            status.setLivedataValue(PayconiqConstants.StatusResponse.ORIGINAL_STATE);
+            status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.ORIGINAL_STATE);
         }
         return status;
     }

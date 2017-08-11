@@ -21,7 +21,7 @@ public interface LivedataObserver {
 
     void handleChangesInObservedUser(User user);
 
-    void handleChangesInObservedStatus(PayconiqConstants.StatusResponse status);
+    void handleChangesInObservedStatus(PayconiqConstants.STATUS_RESPONSE status);
 
 }
 

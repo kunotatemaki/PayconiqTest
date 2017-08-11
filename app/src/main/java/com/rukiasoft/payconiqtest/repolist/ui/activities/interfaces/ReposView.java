@@ -28,13 +28,15 @@ public interface ReposView {
 
     CustomLivedata<User> getLiveUser();
 
-    CustomLivedata<PayconiqConstants.StatusResponse> getLiveStatus();
+    CustomLivedata<PayconiqConstants.STATUS_RESPONSE> getLiveStatus();
 
     int getLastPageRequested();
 
     void showProgressBar();
 
     void hideProgressBar();
+
+    void setLastPageRequested(int page);
 
 
 }

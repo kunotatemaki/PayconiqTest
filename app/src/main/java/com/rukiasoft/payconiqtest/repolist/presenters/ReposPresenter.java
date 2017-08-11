@@ -14,6 +14,8 @@ public interface ReposPresenter {
      */
     void loadRepos();
 
+    void getNextBatchFromNetwork();
+
 
 
 

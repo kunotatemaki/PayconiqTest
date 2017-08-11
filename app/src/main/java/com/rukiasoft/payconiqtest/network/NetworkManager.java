@@ -16,7 +16,7 @@ public interface NetworkManager {
     boolean isNetworkAvailable();
 
     void getDataFromGithub(int page,
-                           CustomLivedata<PayconiqConstants.StatusResponse> status,
+                           CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status,
                            CustomLivedata<User> user,
                            CustomLivedata<List<Repo>> repos
     );
