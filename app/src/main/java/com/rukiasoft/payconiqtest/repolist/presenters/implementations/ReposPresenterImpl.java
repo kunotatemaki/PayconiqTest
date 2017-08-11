@@ -48,6 +48,9 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
             mView.setReposInView(repos);
         }else if(network.isNetworkAvailable()){
             //internet connection, download!!
+            //show progress bar
+            mView.showProgressBar();
+            //call network endpoint
             network.getDataFromGithub(
                     mView.getLastPageRequested(),
                     mView.getLiveStatus(),
@@ -67,6 +70,9 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     //region LIVEDATA OBSERVER INTERFACE
     @Override
     public void handleChangesInObservedRepos(List<Repo> repos) {
+        //hide progress bar
+        mView.hideProgressBar();
+        //set repos
         mView.setReposInView(repos);
     }
 

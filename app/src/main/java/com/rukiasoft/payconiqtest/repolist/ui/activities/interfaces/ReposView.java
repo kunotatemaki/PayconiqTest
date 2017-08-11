@@ -32,5 +32,9 @@ public interface ReposView {
 
     int getLastPageRequested();
 
+    void showProgressBar();
+
+    void hideProgressBar();
+
 
 }

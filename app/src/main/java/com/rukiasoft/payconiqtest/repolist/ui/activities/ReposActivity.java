@@ -4,6 +4,8 @@ import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.ViewModelProviders;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -42,6 +44,7 @@ public class ReposActivity extends BaseActivity implements ReposView {
     ReposAdapter adapter;
 
     private ActivityReposBinding mBinding;
+    private RecyclerView mRecyclerView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +61,14 @@ public class ReposActivity extends BaseActivity implements ReposView {
         log.d(this, "llamo al presenter desde el view");
 
         setToolbar(mBinding.toolbar, false);
+
+        //set the adapter for the recycler view
+        mRecyclerView = mBinding.contentList.repoList;
+
+        // use a linear layout manager
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this);
+        mRecyclerView.setLayoutManager(mLayoutManager);
+        mRecyclerView.setAdapter(adapter);
 
     }
 
@@ -91,6 +102,7 @@ public class ReposActivity extends BaseActivity implements ReposView {
     public void setReposInView(List<Repo> repos) {
         // TODO: 11/8/17 meter los repositorios descargados en la vista
         log.d(this, "LO CONSEGUIIIIIIIIII!!!!!!");
+        adapter.addItems(repos);
     }
 
     @Override
@@ -118,5 +130,15 @@ public class ReposActivity extends BaseActivity implements ReposView {
     @Override
     public int getLastPageRequested() {
         return ViewModelProviders.of(this).get(ReposViewmodel.class).lastPageRequested;
+    }
+
+    @Override
+    public void showProgressBar() {
+        adapter.showProgressBar();
+    }
+
+    @Override
+    public void hideProgressBar() {
+        adapter.hideProgressBar();
     }
 }

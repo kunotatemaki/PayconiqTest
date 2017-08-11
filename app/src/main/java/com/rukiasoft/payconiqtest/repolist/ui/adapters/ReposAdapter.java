@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.databinding.RepoItemBinding;
+import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
 import com.rukiasoft.payconiqtest.model.Repo;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.viewholders.ProgressViewHolder;
@@ -22,12 +23,14 @@ import javax.inject.Inject;
  * Created by Roll on 10/8/17.
  */
 
+@CustomScopes.ActivityScope
 public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    List<Repo> mItems;
+    private List<Repo> mItems;
 
     private final static int REPO_CELL = 0;
     private final static int PROGRESS_CELL = 1;
+    private boolean progressBarVisible = false;
 
     @Inject
     ReposPresenter presenter;
@@ -67,7 +70,11 @@ public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public int getItemCount() {
         //return items size +1; the last item will be the progress bar
-        return mItems.size() + 1;
+        if(progressBarVisible) {
+            return mItems.size() + 1;
+        }else{
+            return mItems.size();
+        }
 
     }
 
@@ -79,6 +86,24 @@ public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }else{
             return REPO_CELL;
         }
+    }
+
+    public void addItems(List<Repo> items){
+        int positionStart = mItems.size();
+        mItems.addAll(items);
+        if(positionStart == 0) {
+            notifyDataSetChanged();
+        }else{
+            this.notifyItemRangeInserted(positionStart, items.size());
+        }
+    }
+
+    public void showProgressBar(){
+        progressBarVisible = true;
+    }
+
+    public void hideProgressBar(){
+        progressBarVisible = false;
     }
 
 }
