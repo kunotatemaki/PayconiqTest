@@ -23,6 +23,11 @@ public class StatusLiveDataImplAndroid extends MutableLiveData<PayconiqConstants
     }
 
     @Override
+    public void forceStorageInLocalDatabaseOnNewData(boolean force) {
+        //do nothing
+    }
+
+    @Override
     public void setLivedataValue(PayconiqConstants.STATUS_RESPONSE value) {
         this.setValue(value);
     }

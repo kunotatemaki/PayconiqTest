@@ -2,6 +2,7 @@ package com.rukiasoft.payconiqtest.repolist.presenters;
 
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
+import com.rukiasoft.payconiqtest.persistence.PersistenceManager;
 import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.network.NetworkManager;
@@ -32,6 +33,9 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
 
     @Inject
     ResourcesManager resourcesManager;
+
+    @Inject
+    PersistenceManager mPersistenceManager;
 
     @Inject
     public ReposPresenterImpl(ReposView view) {
@@ -80,16 +84,25 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
 
     //region LIVEDATA OBSERVER INTERFACE
     @Override
-    public void handleChangesInObservedRepos(List<Repo> repos) {
+    public void handleChangesInObservedRepos(List<Repo> repos, boolean saveInLocalDatabase) {
         //hide progress bar
         mView.hideProgressBar();
         //set repos
         mView.setReposInView(repos);
+        if(saveInLocalDatabase) {
+            //store data in local db
+            mPersistenceManager.insertListOfRepos(repos);
+        }
+
     }
 
     @Override
-    public void handleChangesInObservedUser(User user) {
+    public void handleChangesInObservedUser(User user, boolean saveInLocalDatabase) {
         mView.setUserInView(user);
+        if(saveInLocalDatabase) {
+            //store data in local db
+            mPersistenceManager.insertUser(user);
+        }
     }
 
     @Override

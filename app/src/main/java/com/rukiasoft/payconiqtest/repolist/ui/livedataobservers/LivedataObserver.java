@@ -17,9 +17,9 @@ public interface LivedataObserver {
      * It has to provide an handle method to be called on the data change callback
      * @param repos
      */
-    void handleChangesInObservedRepos(List<Repo> repos);
+    void handleChangesInObservedRepos(List<Repo> repos, boolean saveInLocalDatabase);
 
-    void handleChangesInObservedUser(User user);
+    void handleChangesInObservedUser(User user, boolean saveInLocalDatabase);
 
     void handleChangesInObservedStatus(PayconiqConstants.STATUS_RESPONSE status);
 

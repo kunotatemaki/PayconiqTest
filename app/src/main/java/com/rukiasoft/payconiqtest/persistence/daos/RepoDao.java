@@ -10,6 +10,8 @@ import com.rukiasoft.payconiqtest.persistence.entities.User;
 
 import java.util.List;
 
+import javax.inject.Singleton;
+
 import static android.arch.persistence.room.OnConflictStrategy.REPLACE;
 
 /**

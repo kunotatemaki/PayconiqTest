@@ -17,8 +17,15 @@ import javax.inject.Inject;
 
 public class UserLiveDataImplAndroid extends MutableLiveData<User> implements CustomLivedata<User> {
 
+    private boolean saveInLocalStorage = false;
+
     @Inject
     public UserLiveDataImplAndroid() {
+    }
+
+    @Override
+    public void forceStorageInLocalDatabaseOnNewData(boolean force) {
+        saveInLocalStorage = force;
     }
 
     @Override
@@ -37,7 +44,7 @@ public class UserLiveDataImplAndroid extends MutableLiveData<User> implements Cu
             this.observe((LifecycleRegistryOwner) view, new Observer<User>() {
                 @Override
                 public void onChanged(@Nullable User user) {
-                    observer.handleChangesInObservedUser(user);
+                    observer.handleChangesInObservedUser(user, saveInLocalStorage);
                 }
             });
         }

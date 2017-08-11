@@ -19,8 +19,15 @@ import javax.inject.Inject;
 
 public class ReposLiveDataImplAndroid extends MutableLiveData<List<Repo>> implements CustomLivedata<List<Repo>> {
 
+    private boolean saveInLocalStorage = false;
+
     @Inject
     public ReposLiveDataImplAndroid() {
+    }
+
+    @Override
+    public void forceStorageInLocalDatabaseOnNewData(boolean force) {
+        saveInLocalStorage = force;
     }
 
     @Override
@@ -39,7 +46,7 @@ public class ReposLiveDataImplAndroid extends MutableLiveData<List<Repo>> implem
             this.observe((LifecycleRegistryOwner) view, new Observer<List<Repo>>() {
                 @Override
                 public void onChanged(@Nullable List<Repo> repos) {
-                    observer.handleChangesInObservedRepos(repos);
+                    observer.handleChangesInObservedRepos(repos, saveInLocalStorage);
                 }
             });
         }

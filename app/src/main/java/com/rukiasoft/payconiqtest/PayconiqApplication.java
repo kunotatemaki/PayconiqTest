@@ -29,7 +29,7 @@ public class PayconiqApplication extends Application {
                 .build();
 
         //Room
-        PayconiqDatabase db = Room.databaseBuilder(getApplicationContext(),
+        mDatabase = Room.databaseBuilder(getApplicationContext(),
                 PayconiqDatabase.class, PayconiqConstants.DATABASE_NAME).build();
     }
 

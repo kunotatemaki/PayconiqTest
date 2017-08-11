@@ -9,6 +9,8 @@ import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver
 
 public interface CustomLivedata<T> {
 
+    void forceStorageInLocalDatabaseOnNewData(boolean force);
+
     void setLivedataValue(T value);
 
     T getLivedataValue();
