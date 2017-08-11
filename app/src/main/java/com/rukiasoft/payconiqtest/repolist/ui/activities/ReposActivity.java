@@ -16,6 +16,7 @@ import com.rukiasoft.payconiqtest.model.User;
 import com.rukiasoft.payconiqtest.model.livedata.CustomLivedata;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenter;
 import com.rukiasoft.payconiqtest.repolist.ui.activities.interfaces.ReposView;
+import com.rukiasoft.payconiqtest.repolist.ui.adapters.ReposAdapter;
 import com.rukiasoft.payconiqtest.repolist.ui.lifecycleobservers.ReposLifecycleObserver;
 import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
@@ -37,6 +38,9 @@ public class ReposActivity extends BaseActivity implements ReposView {
     @Inject
     LoggerHelper log;
 
+    @Inject
+    ReposAdapter adapter;
+
     private ActivityReposBinding mBinding;
 
     @Override
@@ -51,7 +55,7 @@ public class ReposActivity extends BaseActivity implements ReposView {
         //bind views
         mBinding = DataBindingUtil.setContentView(this, R.layout.activity_repos);
 
-
+        adapter.prueba();
 
         log.d(this, "llamo al presenter desde el view");
 
