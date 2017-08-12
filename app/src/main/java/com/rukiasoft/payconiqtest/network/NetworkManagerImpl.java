@@ -40,7 +40,8 @@ public class NetworkManagerImpl implements NetworkManager {
 
     @Override
     public boolean isNetworkAvailable() {
-        return true;
+        // TODO: 11/8/17 hacer esta función
+        return false;
     }
 
     @Override
@@ -77,8 +78,10 @@ public class NetworkManagerImpl implements NetworkManager {
                                 githubResponse.getDescription());
                         repoList.add(repo);
                     }
-                    //update livedata values
+                    //update livedata values and force to store in local database
+                    user.forceStorageInLocalDatabaseOnNewData(true);
                     user.setLivedataValue(lUser);
+                    repos.forceStorageInLocalDatabaseOnNewData(true);
                     repos.setLivedataValue(repoList);
                     if(repoList.size() < PayconiqConstants.PER_PAGE_VALUE){
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
@@ -96,7 +99,6 @@ public class NetworkManagerImpl implements NetworkManager {
             public void onFailure(Call<List<GithubRepos>> call, Throwable t) {
                 log.d(this, "respuesta mal: " + t.getMessage());
                 status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
-                // TODO: 11/8/17 hacer algo para que el usuario se entere de que ha ido algo mal
             }
         });
     }

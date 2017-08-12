@@ -13,7 +13,7 @@ public interface ReposPresenter {
 
     void getNextBatchFromNetwork();
 
-
+    void loadDataFromLocalDatabse(String ownerName);
 
 
 }

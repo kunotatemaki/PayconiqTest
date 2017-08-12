@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
  * Created by Roll on 10/8/17.
  */
 
-@Entity(indices = {@Index(value = {"user_id"},
+@Entity(indices = {@Index(value = {"name"},
         unique = true)})
 public class Repo {
     @PrimaryKey

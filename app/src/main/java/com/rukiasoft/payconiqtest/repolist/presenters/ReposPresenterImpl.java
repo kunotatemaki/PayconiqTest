@@ -58,7 +58,7 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
             getNextBatchFromNetwork();
         }else{
             //load data from local database
-            // TODO: 11/8/17 load data from db
+            loadDataFromLocalDatabse(PayconiqConstants.NICKNAME);
 
         }
     }
@@ -78,6 +78,12 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
                 mView.getLiveUser(),
                 mView.getLiveRepos()
         );
+    }
+
+    @Override
+    public void loadDataFromLocalDatabse(String ownerName) {
+        mPersistenceManager.loadUserInfo(ownerName, mView.getLiveUser());
+        mPersistenceManager.loadReposInfo(ownerName, mView.getLiveRepos());
     }
 
     //endregion

@@ -26,6 +26,11 @@ public interface RepoDao {
     @Query("SELECT * FROM repo WHERE id IN (:userIds)")
     List<Repo> loadAllByIds(int[] userIds);
 
+    @Query("SELECT * FROM repo "
+                + "INNER JOIN user ON user.id = repo.user_id "
+                + "WHERE user.name LIKE :userName")
+    List<Repo> loadAllByOwnerName(String userName);
+
     @Query("SELECT * FROM repo WHERE id = :userIds")
     List<Repo> loadAllByUserId(int userIds);
 
