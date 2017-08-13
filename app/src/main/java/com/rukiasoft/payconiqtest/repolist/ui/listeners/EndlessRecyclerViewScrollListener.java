@@ -1,41 +1,56 @@
 package com.rukiasoft.payconiqtest.repolist.ui.listeners;
 
+import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.util.Log;
+import android.view.View;
+
+import com.rukiasoft.payconiqtest.repolist.ui.adapters.ReposAdapterMethods;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
+import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
+
+import javax.inject.Inject;
 
 /**
  * Created by Roll on 10/8/17.
  */
 
 public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnScrollListener {
+
+
+
     // The minimum amount of items to have below your current scroll position
     // before loading more.
     private int visibleThreshold = 3;
     // The current offset index of data you have loaded
-    private int currentPage = 0;
+    private int currentPage = 1;
     // The total number of items in the dataset after the last load
-    private int previousTotalItemCount = 0;
+    private int previousTotalItemCount = PayconiqConstants.PER_PAGE_VALUE;
     // True if we are still waiting for the last set of data to load.
     private boolean loading = false;
     // Sets the starting page index
-    private int startingPageIndex = 0;
+    private int startingPageIndex = 1;
 
     RecyclerView.LayoutManager mLayoutManager;
+    ReposAdapterMethods mAdapter;
 
-    public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager) {
+    public EndlessRecyclerViewScrollListener(LinearLayoutManager layoutManager, ReposAdapterMethods adapter) {
         this.mLayoutManager = layoutManager;
+        this.mAdapter = adapter;
     }
 
-    public EndlessRecyclerViewScrollListener(GridLayoutManager layoutManager) {
+    public EndlessRecyclerViewScrollListener(GridLayoutManager layoutManager, ReposAdapterMethods adapter) {
         this.mLayoutManager = layoutManager;
+        this.mAdapter = adapter;
         visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
     }
 
-    public EndlessRecyclerViewScrollListener(StaggeredGridLayoutManager layoutManager) {
+    public EndlessRecyclerViewScrollListener(StaggeredGridLayoutManager layoutManager, ReposAdapterMethods adapter) {
         this.mLayoutManager = layoutManager;
+        this.mAdapter = adapter;
         visibleThreshold = visibleThreshold * layoutManager.getSpanCount();
     }
 
@@ -60,6 +75,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         int lastVisibleItemPosition = 0;
         int totalItemCount = mLayoutManager.getItemCount();
 
+
         if (mLayoutManager instanceof StaggeredGridLayoutManager) {
             int[] lastVisibleItemPositions = ((StaggeredGridLayoutManager) mLayoutManager).findLastVisibleItemPositions(null);
             // get maximum element within the list
@@ -72,6 +88,7 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
 
         // If the total item count is zero and the previous isn't, assume the
         // list is invalidated and should be reset back to initial state
+
         if (totalItemCount < previousTotalItemCount) {
             this.currentPage = this.startingPageIndex;
             this.previousTotalItemCount = totalItemCount;
@@ -82,7 +99,12 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
         // If it’s still loading, we check to see if the dataset count has
         // changed, if so we conclude it has finished loading and update the current page
         // number and total item count.
-        if (loading && (totalItemCount > previousTotalItemCount)) {
+        //if it is showing last cell as progress bar, the dataset count will be changed, incremented
+        //by one. In that case, don't consider that the loading has finished
+        if (loading && (totalItemCount > previousTotalItemCount) && !mAdapter.isShowingLastCellAsProgressBar()) {
+            Log.d("Rukia_", "pongo loading a true");
+            Log.d("Rukia_", "totalItemCount: " + totalItemCount);
+            Log.d("Rukia_", "previousTotalItemCount: " + previousTotalItemCount);
             loading = false;
             previousTotalItemCount = totalItemCount;
         }
@@ -101,8 +123,8 @@ public abstract class EndlessRecyclerViewScrollListener extends RecyclerView.OnS
     // Call this method whenever performing new searches
     public void resetState() {
         this.currentPage = this.startingPageIndex;
-        this.previousTotalItemCount = 0;
-        this.loading = true;
+        this.previousTotalItemCount = PayconiqConstants.PER_PAGE_VALUE;
+        this.loading = false;
     }
 
     // Defines the process for actually loading more data based on page

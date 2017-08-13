@@ -40,4 +40,6 @@ public interface ReposView {
 
     void showMessage(String msg);
 
+    void listenToScrollEvents(boolean listen);
+
 }

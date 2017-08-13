@@ -24,7 +24,7 @@ import javax.inject.Inject;
  */
 
 @CustomScopes.ActivityScope
-public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements ReposAdapterMethods{
 
     private List<Repo> mItems;
 
@@ -88,6 +88,7 @@ public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    @Override
     public void addItems(List<Repo> items){
         int positionStart = mItems.size();
         mItems.addAll(items);
@@ -98,13 +99,20 @@ public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         }
     }
 
+    @Override
     public void showProgressBar(){
         progressBarVisible = true;
     }
 
+    @Override
     public void hideProgressBar(){
         progressBarVisible = false;
         notifyItemRemoved(mItems.size());
+    }
+
+    @Override
+    public boolean isShowingLastCellAsProgressBar() {
+        return progressBarVisible;
     }
 
 }

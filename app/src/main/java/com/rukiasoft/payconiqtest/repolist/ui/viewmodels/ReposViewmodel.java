@@ -21,6 +21,8 @@ public class ReposViewmodel extends ViewModel {
 
     public int lastPageRequested = 0;
 
+    public boolean canListenScrollEvents = true;
+
     private CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status;
 
     private CustomLivedata<List<Repo>> repos;

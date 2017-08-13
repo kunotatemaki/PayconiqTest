@@ -1,5 +1,9 @@
 package com.rukiasoft.payconiqtest.network;
 
+import android.content.Context;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+
 import com.rukiasoft.payconiqtest.model.CustomLivedata;
 import com.rukiasoft.payconiqtest.network.endpoints.RetrofitEndpoints;
 import com.rukiasoft.payconiqtest.network.responsemodel.GithubRepos;
@@ -28,6 +32,9 @@ public class NetworkManagerImpl implements NetworkManager {
     @Inject
     LoggerHelper log;
 
+    @Inject
+    Context context;
+
     private final Retrofit retrofit;
 
     @Inject
@@ -41,7 +48,10 @@ public class NetworkManagerImpl implements NetworkManager {
     @Override
     public boolean isNetworkAvailable() {
         // TODO: 11/8/17 hacer esta función
-        return false;
+        ConnectivityManager connectivityManager =
+                (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
+        return activeNetworkInfo != null && activeNetworkInfo.isConnectedOrConnecting();
     }
 
     @Override
@@ -60,9 +70,9 @@ public class NetworkManagerImpl implements NetworkManager {
                 log.d(this, "respuesta ok");
                 if(response.body() != null) {
                     List<GithubRepos> listResponse = response.body();
-                    if(listResponse == null && listResponse.isEmpty()){
-                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
-                        return ;
+                    if(listResponse == null ){
+                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
+                        return;
                     }
                     User lUser = null;
                     List<Repo> repoList = new ArrayList<>();
@@ -79,11 +89,13 @@ public class NetworkManagerImpl implements NetworkManager {
                         repoList.add(repo);
                     }
                     //update livedata values and force to store in local database
-                    user.forceStorageInLocalDatabaseOnNewData(true);
-                    user.setLivedataValue(lUser);
+                    if(lUser != null) {
+                        user.forceStorageInLocalDatabaseOnNewData(true);
+                        user.setLivedataValue(lUser);
+                    }
                     repos.forceStorageInLocalDatabaseOnNewData(true);
                     repos.setLivedataValue(repoList);
-                    if(repoList.size() < PayconiqConstants.PER_PAGE_VALUE){
+                    if(repoList.isEmpty()){
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
                     }else {
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);

@@ -1,5 +1,7 @@
 package com.rukiasoft.payconiqtest.repolist.presenters;
 
+import android.arch.lifecycle.ViewModelProviders;
+
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
 import com.rukiasoft.payconiqtest.persistence.PersistenceManager;
@@ -8,6 +10,7 @@ import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.network.NetworkManager;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
 import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
+import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
 import com.rukiasoft.payconiqtest.resources.ResourcesManager;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
@@ -55,9 +58,12 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
             mView.setReposInView(repos);
         }else if(network.isNetworkAvailable()){
             //internet connection, download!!
+            //allow scroll listener before
+            mView.listenToScrollEvents(true);
             getNextBatchFromNetwork();
         }else{
             //load data from local database
+            mView.listenToScrollEvents(false);
             loadDataFromLocalDatabse(PayconiqConstants.NICKNAME);
 
         }

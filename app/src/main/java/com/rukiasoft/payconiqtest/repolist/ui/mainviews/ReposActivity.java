@@ -42,7 +42,7 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
     LoggerHelper log;
 
     @Inject
-    ReposAdapter adapter;
+    ReposAdapter mAdapter;
 
     private ActivityReposBinding mBinding;
     private RecyclerView mRecyclerView;
@@ -67,27 +67,27 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
         //listener for the appbar
         mBinding.appBar.addOnOffsetChangedListener(this);
 
-        //set the adapter for the recycler view
+        //set the mAdapter for the recycler view
         mRecyclerView = mBinding.contentList.repoList;
 
         // use a linear layout manager
         RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-        mRecyclerView.setAdapter(adapter);
+        mRecyclerView.setAdapter(mAdapter);
         //add a divider decorator
         DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(mRecyclerView.getContext(),
                 DividerItemDecoration.VERTICAL);
         mRecyclerView.addItemDecoration(dividerItemDecoration);
 
-        mScrollListener = new EndlessRecyclerViewScrollListener((LinearLayoutManager) mRecyclerView.getLayoutManager()) {
+        mScrollListener = new EndlessRecyclerViewScrollListener(
+                (LinearLayoutManager) mRecyclerView.getLayoutManager(),
+                mAdapter) {
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
-                log.d(this, "load more data");
+                log.d(this, "load more data: page-> " +  page + " totalItems-> " + totalItemsCount);
                 presenter.getNextBatchFromNetwork();
             }
         };
-
-
 
     }
 
@@ -98,9 +98,7 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
 
     @Override
     public void setReposInView(List<Repo> repos) {
-        log.d(this, "setting repos in view");
-        adapter.addItems(repos);
-
+        mAdapter.addItems(repos);
     }
 
     @Override
@@ -132,12 +130,12 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
 
     @Override
     public void showProgressBar() {
-        adapter.showProgressBar();
+        mAdapter.showProgressBar();
     }
 
     @Override
     public void hideProgressBar() {
-        adapter.hideProgressBar();
+        mAdapter.hideProgressBar();
     }
 
     @Override
@@ -147,13 +145,23 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
 
     @Override
     public void showMessage(String msg) {
+        log.d(this, "=======================");
+        log.d(this, "mensajeeee");
         Snackbar.make(mBinding.getRoot(), msg, Snackbar.LENGTH_LONG).show();
+    }
+
+    @Override
+    public void listenToScrollEvents(boolean listen) {
+        ViewModelProviders.of(this).get(ReposViewmodel.class).canListenScrollEvents = listen;
     }
 
 
     //region SCROLL METHODS
     private void setScrollListener(){
-        mRecyclerView.addOnScrollListener(mScrollListener);
+        //check if need to add listener (if data came from local db, avoid it)
+        if(ViewModelProviders.of(this).get(ReposViewmodel.class).canListenScrollEvents) {
+            mRecyclerView.addOnScrollListener(mScrollListener);
+        }
     }
 
     private void removeScrollListener(){
