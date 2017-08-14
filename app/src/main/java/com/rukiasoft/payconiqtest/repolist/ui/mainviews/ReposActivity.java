@@ -67,6 +67,9 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
         //listener for the appbar
         mBinding.appBar.addOnOffsetChangedListener(this);
 
+        //set state of appbar (handle rotation)
+        mBinding.appBar.setExpanded(ViewModelProviders.of(this).get(ReposViewmodel.class).userInfoExpanded);
+
         //set the mAdapter for the recycler view
         mRecyclerView = mBinding.contentList.repoList;
 
@@ -173,8 +176,11 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
     @Override
     public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
         if(Math.abs(verticalOffset) > appBarLayout.getTotalScrollRange() - 5){  //5 is a small threshold
+            //collapsed -> save state of appbar
+            ViewModelProviders.of(this).get(ReposViewmodel.class).userInfoExpanded = false;
             setScrollListener();
         }else {
+            ViewModelProviders.of(this).get(ReposViewmodel.class).userInfoExpanded = true;
             removeScrollListener();
         }
     }

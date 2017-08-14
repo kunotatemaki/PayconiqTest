@@ -75,7 +75,10 @@ public class NetworkManagerImpl implements NetworkManager {
                         return;
                     }
                     User lUser = null;
-                    List<Repo> repoList = new ArrayList<>();
+                    List<Repo> repoList = repos.getLivedataValue();
+                    if(repoList == null){
+                        repoList = new ArrayList<>();
+                    }
                     for(GithubRepos githubResponse : listResponse){
                         if(lUser == null){
                             lUser = new User(githubResponse.getUser().getId(),

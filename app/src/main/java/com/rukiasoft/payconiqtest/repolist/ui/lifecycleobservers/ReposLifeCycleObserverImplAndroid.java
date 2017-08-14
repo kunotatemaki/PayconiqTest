@@ -35,7 +35,7 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_CREATE)
-    void injectViewInPresenter(){
+    void actionInOnCreate(){
         log.d(this, "oncreate del observador");
 
         //force presenter to observe data (repos and user)
@@ -44,11 +44,17 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
             mView.getLiveUser().addObserverToLivedata(mView, (LivedataObserver) presenter);
             mView.getLiveStatus().addObserverToLivedata(mView, (LivedataObserver) presenter);
         }
+    }
+
+    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    void actionInOnResume(){
+
         presenter.loadRepos();
+
     }
 
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
-    void removeActivityReferenceFromObserver(){
+    void actionInOnDestroy(){
         log.d(this, "ondestroy del observador");
     }
 

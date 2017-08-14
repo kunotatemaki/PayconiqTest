@@ -91,7 +91,10 @@ public class ReposAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void addItems(List<Repo> items){
         int positionStart = mItems.size();
-        mItems.addAll(items);
+        if(items.size() > positionStart){
+            mItems.addAll(items.subList(positionStart, items.size()));
+        }
+        //mItems.addAll(items.subList());
         if(positionStart == 0) {
             notifyDataSetChanged();
         }else{
