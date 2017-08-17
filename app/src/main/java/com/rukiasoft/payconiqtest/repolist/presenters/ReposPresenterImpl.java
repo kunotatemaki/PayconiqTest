@@ -1,16 +1,15 @@
 package com.rukiasoft.payconiqtest.repolist.presenters;
 
-import android.arch.lifecycle.ViewModelProviders;
+import android.support.annotation.VisibleForTesting;
 
 import com.rukiasoft.payconiqtest.R;
 import com.rukiasoft.payconiqtest.dependencyinjection.scopes.CustomScopes;
+import com.rukiasoft.payconiqtest.network.NetworkManager;
 import com.rukiasoft.payconiqtest.persistence.PersistenceManager;
 import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.persistence.entities.User;
-import com.rukiasoft.payconiqtest.network.NetworkManager;
 import com.rukiasoft.payconiqtest.repolist.ui.livedataobservers.LivedataObserver;
 import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
-import com.rukiasoft.payconiqtest.repolist.ui.viewmodels.ReposViewmodel;
 import com.rukiasoft.payconiqtest.resources.ResourcesManager;
 import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 import com.rukiasoft.payconiqtest.utils.logger.LoggerHelper;
@@ -43,6 +42,15 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
     @Inject
     public ReposPresenterImpl(ReposView view) {
         mView = view;
+    }
+
+    @VisibleForTesting
+    public ReposPresenterImpl(ReposView view, LoggerHelper log, NetworkManager network, ResourcesManager resourcesManager, PersistenceManager persistenceManager) {
+        this.mView = view;
+        this.log = log;
+        this.network = network;
+        this.resourcesManager = resourcesManager;
+        this.mPersistenceManager = persistenceManager;
     }
 
 

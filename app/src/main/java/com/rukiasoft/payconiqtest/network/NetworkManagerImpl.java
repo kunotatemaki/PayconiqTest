@@ -75,6 +75,8 @@ public class NetworkManagerImpl implements NetworkManager {
                         return;
                     }
                     User lUser = null;
+
+                    //get stored repos to add new ones
                     List<Repo> repoList = repos.getLivedataValue();
                     if(repoList == null){
                         repoList = new ArrayList<>();
@@ -91,6 +93,7 @@ public class NetworkManagerImpl implements NetworkManager {
                                 githubResponse.getDescription());
                         repoList.add(repo);
                     }
+
                     //update livedata values and force to store in local database
                     if(lUser != null) {
                         user.forceStorageInLocalDatabaseOnNewData(true);
@@ -98,7 +101,7 @@ public class NetworkManagerImpl implements NetworkManager {
                     }
                     repos.forceStorageInLocalDatabaseOnNewData(true);
                     repos.setLivedataValue(repoList);
-                    if(repoList.isEmpty()){
+                    if(listResponse.isEmpty()){
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
                     }else {
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);
