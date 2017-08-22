@@ -28,7 +28,7 @@ import static org.junit.Assert.*;
 public class UserDaoTest {
     private UserDao mUserDao;
     private PayconiqDatabase mDb;
-    User user1, user2;
+    private User user1, user2;
 
     @Before
     public void createDb() {

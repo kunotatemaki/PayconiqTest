@@ -31,7 +31,7 @@ public interface RepoDao {
                 + "WHERE user.name LIKE :userName")
     List<Repo> loadAllByOwnerName(String userName);
 
-    @Query("SELECT * FROM repo WHERE id = :userIds")
+    @Query("SELECT * FROM repo WHERE user_id = :userIds")
     List<Repo> loadAllByUserId(int userIds);
 
     @Insert(onConflict = REPLACE)
