@@ -9,7 +9,7 @@ import android.arch.persistence.room.PrimaryKey;
  * Created by Roll on 10/8/17.
  */
 
-@Entity(indices = {@Index(value = {"name"},
+@Entity(indices = {@Index(value = {"repo_name"},
         unique = true)})
 public class Repo {
     @PrimaryKey
@@ -18,7 +18,7 @@ public class Repo {
     @ColumnInfo(name = "user_id")
     private int userId;
 
-    @ColumnInfo(name = "name")
+    @ColumnInfo(name = "repo_name")
     private String name;
 
     @ColumnInfo(name = "description")

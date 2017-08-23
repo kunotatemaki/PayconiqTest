@@ -58,11 +58,12 @@ public class NetworkManagerImpl implements NetworkManager {
     public void getDataFromGithub(int page,
                                   final CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status,
                                   final CustomLivedata<User> user,
-                                  final CustomLivedata<List<Repo>> repos
+                                  final CustomLivedata<List<Repo>> repos,
+                                  final String ownerName
     ) {
         RetrofitEndpoints endpoints = retrofit.create(RetrofitEndpoints.class);
 
-        final Call<List<GithubRepos>> call = endpoints.getRepos(PayconiqConstants.NICKNAME,
+        final Call<List<GithubRepos>> call = endpoints.getRepos(ownerName,
                 page, PayconiqConstants.PER_PAGE_VALUE);
         call.enqueue(new Callback<List<GithubRepos>>() {
             @Override
@@ -71,7 +72,7 @@ public class NetworkManagerImpl implements NetworkManager {
                 if(response.body() != null) {
                     List<GithubRepos> listResponse = response.body();
                     if(listResponse == null ){
-                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
+                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.LOAD_FAILED);
                         return;
                     }
                     User lUser = null;
@@ -104,11 +105,11 @@ public class NetworkManagerImpl implements NetworkManager {
                     if(listResponse.isEmpty()){
                         status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
                     }else {
-                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_OK);
+                        status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.LOAD_OK);
                     }
                 }else{
                     log.d(this, "respuesta vacía");
-                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
+                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.LOAD_FAILED);
                 }
 
             }
@@ -116,7 +117,7 @@ public class NetworkManagerImpl implements NetworkManager {
             @Override
             public void onFailure(Call<List<GithubRepos>> call, Throwable t) {
                 log.d(this, "respuesta mal: " + t.getMessage());
-                status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.DOWNLOAD_FAILED);
+                status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.LOAD_FAILED);
             }
         });
     }

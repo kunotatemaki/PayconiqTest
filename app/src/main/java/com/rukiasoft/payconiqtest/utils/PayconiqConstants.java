@@ -7,9 +7,9 @@ package com.rukiasoft.payconiqtest.utils;
 public class PayconiqConstants {
     public enum STATUS_RESPONSE {
         ORIGINAL_STATE(0),
-        DOWNLOAD_OK(1),
+        LOAD_OK(1),
         NO_MORE_REPOS(-1),
-        DOWNLOAD_FAILED(-2);
+        LOAD_FAILED(-2);
 
         private int numVal;
 

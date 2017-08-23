@@ -46,7 +46,7 @@ public class ReposLifeCycleObserverImplAndroid implements ReposLifecycleObserver
         }
     }
 
-    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+    @OnLifecycleEvent(Lifecycle.Event.ON_START)
     void actionInOnResume(){
 
         presenter.loadRepos();

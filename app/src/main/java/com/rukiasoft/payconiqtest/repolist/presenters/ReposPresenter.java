@@ -11,9 +11,11 @@ public interface ReposPresenter {
      */
     void loadRepos();
 
+    void getNextBatch();
+
     void getNextBatchFromNetwork();
 
-    void loadDataFromLocalDatabse(String ownerName);
+    void getNextBacthFromLocalDb();
 
 
 }

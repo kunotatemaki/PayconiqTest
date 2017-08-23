@@ -62,18 +62,24 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
         User user = mView.getLiveUser().getLivedataValue();
         if(user != null && repos != null && !repos.isEmpty()){
             //cached data
+            mView.listenToScrollEvents(true);
             mView.setUserInView(user);
             mView.setReposInView(repos);
-        }else if(network.isNetworkAvailable()){
-            //internet connection, download!!
+        }else {
             //allow scroll listener before
             mView.listenToScrollEvents(true);
+            getNextBatch();
+        }
+    }
+
+    @Override
+    public void getNextBatch() {
+        if(network.isNetworkAvailable()){
+            //internet connection, download!!
             getNextBatchFromNetwork();
         }else{
             //load data from local database
-            mView.listenToScrollEvents(false);
-            loadDataFromLocalDatabse(PayconiqConstants.NICKNAME);
-
+            getNextBacthFromLocalDb();
         }
     }
 
@@ -90,14 +96,24 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
                 mView.getLastPageRequested() + 1,
                 mView.getLiveStatus(),
                 mView.getLiveUser(),
-                mView.getLiveRepos()
+                mView.getLiveRepos(),
+                PayconiqConstants.NICKNAME
         );
     }
 
     @Override
-    public void loadDataFromLocalDatabse(String ownerName) {
-        mPersistenceManager.loadUserInfo(ownerName, mView.getLiveUser());
-        mPersistenceManager.loadReposInfo(ownerName, mView.getLiveRepos());
+    public void getNextBacthFromLocalDb() {
+
+        if(mView.getLastPageRequested() < 0){
+            // no more pages to download
+            return;
+        }else if(mView.getLastPageRequested() == 0) {
+            mPersistenceManager.loadUserInfo(PayconiqConstants.NICKNAME, mView.getLiveUser());
+        }
+        //show progress bar
+        mView.showProgressBar();
+        mPersistenceManager.loadReposInfo(PayconiqConstants.NICKNAME, mView.getLiveRepos(),
+                mView.getLiveStatus(), mView.getLastPageRequested());
     }
 
     //endregion
@@ -127,15 +143,14 @@ public class ReposPresenterImpl implements ReposPresenter, LivedataObserver{
 
     @Override
     public void handleChangesInObservedStatus(PayconiqConstants.STATUS_RESPONSE status) {
-        // TODO: 11/8/17 manejar la respuesta del retrofit (subir el número de páginas, mostrar mensaje de error...)
         log.d(this, "he cambiado el status a " + status);
         switch (status){
             case ORIGINAL_STATE:
                 break;
-            case DOWNLOAD_FAILED:
+            case LOAD_FAILED:
                 mView.hideProgressBar();
                 break;
-            case DOWNLOAD_OK:
+            case LOAD_OK:
                 mView.setLastPageRequested(mView.getLastPageRequested() + 1);
                 break;
             case NO_MORE_REPOS:

@@ -13,6 +13,7 @@ import com.rukiasoft.payconiqtest.persistence.daos.UserDao;
 import com.rukiasoft.payconiqtest.persistence.databases.PayconiqDatabase;
 import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.persistence.entities.User;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import org.junit.After;
 import org.junit.Before;
@@ -75,7 +76,7 @@ public class RepositoryDaoTest {
     public void writeReposAndReadByIds() throws Exception {
         writeData();
         int[] ids = {1,2};
-        List<Repo> lRepos = mRepoDao.loadAllByIds(ids);
+        List<Repo> lRepos = mRepoDao.loadAllByIds(ids, 2, 0);
         assertTrue(lRepos.size() == 2);
     }
 
@@ -89,7 +90,7 @@ public class RepositoryDaoTest {
     @Test
     public void readReposByUserName() throws Exception {
         writeData();
-        List<Repo> lRepos = mRepoDao.loadAllByOwnerName("John");
+        List<Repo> lRepos = mRepoDao.loadAllByOwnerName("John", PayconiqConstants.PER_PAGE_VALUE, 0);
         assertTrue(lRepos.size() == 3);
     }
 

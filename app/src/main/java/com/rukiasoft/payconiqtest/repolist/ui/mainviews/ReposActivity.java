@@ -88,7 +88,7 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
             @Override
             public void onLoadMore(int page, int totalItemsCount, RecyclerView view) {
                 log.d(this, "load more data: page-> " +  page + " totalItems-> " + totalItemsCount);
-                presenter.getNextBatchFromNetwork();
+                presenter.getNextBatch();
             }
         };
 
@@ -148,8 +148,6 @@ public class ReposActivity extends BaseActivity implements ReposView, AppBarLayo
 
     @Override
     public void showMessage(String msg) {
-        log.d(this, "=======================");
-        log.d(this, "mensajeeee");
         Snackbar.make(mBinding.getRoot(), msg, Snackbar.LENGTH_LONG).show();
     }
 

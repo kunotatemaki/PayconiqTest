@@ -18,6 +18,7 @@ public interface NetworkManager {
     void getDataFromGithub(int page,
                            CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status,
                            CustomLivedata<User> user,
-                           CustomLivedata<List<Repo>> repos
+                           CustomLivedata<List<Repo>> repos,
+                           String ownerName
     );
 }

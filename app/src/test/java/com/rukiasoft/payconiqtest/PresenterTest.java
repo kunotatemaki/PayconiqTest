@@ -9,7 +9,6 @@ import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.persistence.entities.User;
 import com.rukiasoft.payconiqtest.repolist.presenters.ReposPresenterImpl;
 import com.rukiasoft.payconiqtest.repolist.ui.mainviews.ReposView;
-import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -75,7 +74,7 @@ public class PresenterTest {
         presenter.loadRepos();
         verify(view, times(1)).setReposInView(reposFull.getLivedataValue());
         verify(presenter, times(0)).getNextBatchFromNetwork();
-        verify(presenter, times(0)).loadDataFromLocalDatabse(PayconiqConstants.NICKNAME);
+        verify(presenter, times(0)).getNextBacthFromLocalDb();
     }
 
     @Test
@@ -83,7 +82,7 @@ public class PresenterTest {
         configureViewAndNetworkToReturnNetworkData();
         presenter.loadRepos();
         verify(presenter, times(1)).getNextBatchFromNetwork();
-        verify(presenter, times(0)).loadDataFromLocalDatabse(PayconiqConstants.NICKNAME);
+        verify(presenter, times(0)).getNextBacthFromLocalDb();
     }
 
     @Test
@@ -91,7 +90,7 @@ public class PresenterTest {
         configureViewAndNetworkToReturnDataFromDb();
         presenter.loadRepos();
         verify(presenter, times(0)).getNextBatchFromNetwork();
-        verify(presenter, times(1)).loadDataFromLocalDatabse(PayconiqConstants.NICKNAME);
+        verify(presenter, times(1)).getNextBacthFromLocalDb();
     }
 
     @Test

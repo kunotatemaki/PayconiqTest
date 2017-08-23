@@ -6,7 +6,9 @@ import com.rukiasoft.payconiqtest.PayconiqApplication;
 import com.rukiasoft.payconiqtest.model.CustomLivedata;
 import com.rukiasoft.payconiqtest.persistence.entities.Repo;
 import com.rukiasoft.payconiqtest.persistence.entities.User;
+import com.rukiasoft.payconiqtest.utils.PayconiqConstants;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -76,17 +78,30 @@ public class PersistenceManagerImplAndroid implements PersistenceManager {
     }
 
     @Override
-    public void loadReposInfo(final String userName, final CustomLivedata<List<Repo>> liveRepos) {
+    public void loadReposInfo(final String userName, final CustomLivedata<List<Repo>> liveRepos,
+                              final CustomLivedata<PayconiqConstants.STATUS_RESPONSE> status, final int page) {
         new AsyncTask<Void, Void, List<Repo>>() {
             @Override
             protected List<Repo> doInBackground(Void... params) {
-                return mApplication.getmDatabase().repoDao().loadAllByOwnerName(userName);
+                return mApplication.getmDatabase().repoDao().loadAllByOwnerName(userName,
+                        PayconiqConstants.PER_PAGE_VALUE, PayconiqConstants.PER_PAGE_VALUE * page);
             }
 
             @Override
             protected void onPostExecute(List<Repo> repos) {
                 liveRepos.forceStorageInLocalDatabaseOnNewData(false);
-                liveRepos.setLivedataValue(repos);
+                List<Repo> repoList = liveRepos.getLivedataValue();
+                if(repoList == null){
+                    repoList = new ArrayList<>();
+                }
+                repoList.addAll(repos);
+                liveRepos.setLivedataValue(repoList);
+                //update page number with status observable
+                if(repos.isEmpty()){
+                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.NO_MORE_REPOS);
+                }else {
+                    status.setLivedataValue(PayconiqConstants.STATUS_RESPONSE.LOAD_OK);
+                }
             }
         }.execute();
     }
