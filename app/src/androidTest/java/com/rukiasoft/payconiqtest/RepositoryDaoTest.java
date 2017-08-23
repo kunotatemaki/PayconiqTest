@@ -95,6 +95,15 @@ public class RepositoryDaoTest {
     }
 
     @Test
+    public void checkOffsetAndLimitOfRows(){
+        writeData();
+        List<Repo> lRepos = mRepoDao.loadAllByOwnerName("John", PayconiqConstants.PER_PAGE_VALUE, 2);
+        assertTrue(lRepos.size() == 1);
+        assertTrue(lRepos.get(0).getName().equals("Repo3"));
+        assertTrue(lRepos.get(0).getDescription().equals("description 3"));
+    }
+
+    @Test
     public void deleteUser() throws Exception {
         writeData();
         mRepoDao.delete(repo2);
